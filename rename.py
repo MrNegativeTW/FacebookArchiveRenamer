@@ -9,7 +9,36 @@ from pathlib import Path
 from distutils.dir_util import copy_tree
 
 # Rename json file's name here in case u have multiple json files.
-json_file_name = 'message_1.json'
+json_file_name = 'message_20.json'
+
+
+def generate_all_files_name_as_list():
+    """Generate a list of all json files name in current working directory.
+    
+    Returns:
+        list: list of all json files name in current working directory.
+    """
+    loop_count = 0
+    mList = []
+
+    # Generate file name as list.
+    while True:
+        loop_count += 1
+        fileName = 'message_' + str(loop_count) + '.json'
+        if is_file_exists(fileName):
+            mList.append(fileName)
+        else:
+            break
+
+    return mList
+
+
+def backup_original_photo():
+    """Backup original photo to photos_original folder."""
+
+    # Copy photos to photos_original folder if it does not exist.
+    if not os.path.exists('photos_original'):
+        copy_tree("photos", "photos_original")
 
 
 def find_nth(mString, target, n):
@@ -82,12 +111,12 @@ def rename_file(filePath, convertedDatetime):
 
         # Rename file then print the result.
         os.rename(filePath, newFileNameWithPath)
-        print('[OK, Duplicated] {}, {}'.format(newFileName, filePath))
+        print('[Duplicated, OK] {}, {}'.format(newFileName, filePath))
 
 
 if __name__ == "__main__":
     # Backup the old photos folder before the operation.
-    copy_tree("photos", "photos_original")
+    backup_original_photo()
 
     with open(json_file_name, "r") as f:
         data = json.load(f)

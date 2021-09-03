@@ -4,51 +4,86 @@
 
 import json
 from datetime import datetime
+from pathlib import Path
+
+print_message_from_file = 'message_20.json'
+
+
+def is_file_exists(filePath):
+    return Path(filePath).exists()
+
 
 def calc_total_messages():
+    """Calculate total messages from all json files."""
     total_msg = 0
+    loop_count = 0
     mList = []
 
-    # Generate file name
-    for i in range(1, 21):
-        file_name = 'message_'
-        extension = '.json'
-        full_name = file_name + str(i) + extension
-        mList.append(full_name)
+    # Generate file name as list.
+    while True:
+        loop_count += 1
+        fileName = 'message_' + str(loop_count) + '.json'
+        if is_file_exists(fileName):
+            mList.append(fileName)
+        else:
+            break
 
-    # Read messages
+    # Open each file to calculate messages.
     for i in mList:
         with open(i) as f:
             data = json.load(f)
             a = data['messages']
             total_msg += len(a)
-            print(len(a))
+            # print(f"{i}: {len(a)}")
 
-    print(total_msg)
-
-def encode_to_human_raedable():
-    data = r'"\u00f0\u009f\u0094\u0091"'
-    return json.loads(data).encode('latin1').decode('utf8')
+    # Print total messages.
+    print(f"Total messages count: {total_msg}")
 
 
-# Print message using followin format
+def encode_to_human_raedable(encoded_content):
+    """Convert facebook archive string to normal string.
+
+    The below code example will be converted to "想我啦"
+    data = r'"\u00e6\u0083\u00b3\u00e6\u0088\u0091\u00e5\u0095\u00a6"' 
+    print(json.loads(encoded_content).encode('latin1').decode('utf8'))
+
+    Args:
+        encoded_content (json object): Something like message['content']
+
+    Returns:
+        string: Human readable string.
+    """
+    return encoded_content.encode('latin1').decode('utf8')
+
+
+# Print messages from archieve using following format.
 # 1970-01-01 00:00:00 <Sender> Message
-with open('message_20.json') as f:
-    data = json.load(f)
+def print_all_message_from_single_json_file():
+    with open(print_message_from_file) as f:
+        data = json.load(f)
 
-    for i in data['messages']:
-        # Timestamp
-        ts = i['timestamp_ms'] / 1000
-        print(datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'), end=' ')
+        for message in data['messages']:
+            # Loop through all messages.
 
-        # Sender
-        sender_name = i['sender_name'].encode('latin1').decode('utf8')
-        print('<%s>' % sender_name, end=' ')
+            # Print timestamp
+            ts = message['timestamp_ms'] / 1000
+            print(datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
+                end=' ')
 
-        # Message
-        if 'content' in i:
-            print(i['content'].encode('latin1').decode('utf8'))
-        elif 'photos' in i:
-            print(i['photos'][0]['creation_timestamp'], i['photos'][0]['uri'])
-        elif 'sticker' in i:
-            print(i['sticker'])
+            # Print sender' name
+            sender_name = encode_to_human_raedable(message['sender_name'])
+            print('<%s>' % sender_name, end=' ')
+
+            # Detect message type than print it.
+            if 'content' in message:
+                # Text
+                print(encode_to_human_raedable(message['content']))
+            elif 'photos' in message:
+                print(message['photos'][0]['creation_timestamp'],
+                    message['photos'][0]['uri'])
+            elif 'sticker' in message:
+                print(message['sticker'])
+
+if __name__ == "__main__":
+    calc_total_messages()
+    # print_all_message_from_single_json_file()
