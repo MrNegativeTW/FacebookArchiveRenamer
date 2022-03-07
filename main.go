@@ -9,8 +9,12 @@ import (
 	"os"
 	"strings"
 	"time"
+
+	"golang.org/x/text/encoding/charmap"
+	"golang.org/x/text/transform"
 )
 
+const baseFolderPath = "target/"
 const photosFolderPath string = "photos/"
 const messageFileName string = "message_1.json"
 
@@ -82,15 +86,18 @@ func renamePhotos(originalPhotoName string, creationTimestamp int) {
 		if e != nil {
 			log.Fatal(e)
 		}
+	} else {
+		fmt.Printf("[Not Found]\n")
 	}
 }
 
 func main() {
-	jsonFile, err := os.Open("" + messageFileName)
+	jsonFile, err := os.Open(baseFolderPath + messageFileName)
 	if err != nil {
 		fmt.Println(err)
+	} else {
+		fmt.Printf("Json file opened successfully! ")
 	}
-	fmt.Printf("Json file opened successfully! ")
 	defer jsonFile.Close()
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
@@ -102,6 +109,10 @@ func main() {
 
 	// Loop through all the messages
 	for i := 0; i < len(messages.Messages); i++ {
+		toLatin := charmap.ISO8859_1.NewEncoder()
+		inLatin, _, _ := transform.String(toLatin, messages.Messages[i].Content)
+		fmt.Printf("%s\n", inLatin)
+
 		// Check message type is photo
 		if len(messages.Messages[i].Photos) != 0 {
 			// Loop through photos, sometimes a message has more than one photo.
