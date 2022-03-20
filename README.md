@@ -28,11 +28,33 @@ Rename photos downloaded from Facebook archive to human-readable DateTime format
 
 ## How it works?
 
-1. Loop through JSON file to get every message
+Loop through JSON file to get every message, if the message type is a photo, find that photo and rename it with the message timestamp.
+
 
 ## How to use?
 
+### Download your data from Facebook
+
+1. Go to `Settings & privacy` -> `Settings`
+
+![](screenshots/how_0.png)
+
+2. Choose `Your Facebook Information` -> `Download Your Information`
+
+![](screenshots/how_1.png)
+![](screenshots/how_2.png)
+
+3. Under `Select file options`, choose `JSON` and `High`.
+Under `Select information to download`, choose `Messages`.
+
+![](screenshots/how_3.png)
+
+4. Request a download
+
+![](screenshots/how_4.png)
+
+
 ## License
 ```
-Hummm...
+Not decided yet.
 ```
