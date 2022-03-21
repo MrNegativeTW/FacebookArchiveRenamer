@@ -11,7 +11,6 @@ import (
 	"time"
 
 	MessageModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
-	Utils "github.com/mrnegativetw/FacebookArchivePhotosRenamer/utils"
 )
 
 const baseFolderPath string = "target/"
@@ -78,7 +77,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Printf("Json file opened successfully! ")
+		fmt.Printf("Json file opened successfully! \n")
 	}
 	defer jsonFile.Close()
 
@@ -87,9 +86,14 @@ func main() {
 	var messages MessageModel.Messages
 	json.Unmarshal(byteValue, &messages)
 
-	fmt.Printf("There are %d messages in this file.\n", len(messages.Messages))
+	// fmt.Printf("There are %d messages in this file.\n", len(messages.Messages))
 
-	Utils.Viewer{}.PrintMessageDetails(messages)
+	// Print all messages from single file.
+	// Utils.Viewer{}.PrintMessageDetails(messages)
+
+	// Calc total messages.
+	// totalMessageCount := Utils.Calculator{}.CalculateTotalMessage(baseFolderPath)
+	// fmt.Printf("Total message count: %d\n", totalMessageCount)
 
 	// Loop through all the messages
 	for i := 0; i < len(messages.Messages); i++ {
