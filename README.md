@@ -23,8 +23,12 @@ Rename photos downloaded from Facebook archive to human-readable DateTime format
 | ![Before](https://raw.githubusercontent.com/MrNegativeTW/FacebookArchivePhotosRenamer/main/screenshots/before_rename.png) | ![After](https://raw.githubusercontent.com/MrNegativeTW/FacebookArchivePhotosRenamer/main/screenshots/after_rename.png) 
 
 ## Features
-- Auto backup original photos before rename
-- Auto deal with the duplicate file name by adding one second.
+
+- Print message with timestamp and sender name
+- Count total messages
+- Rename photos to date time format
+- Auto deal with the duplicate file name by adding one second
+- Auto backup original photos before rename (Python)
 
 ## How it works?
 
