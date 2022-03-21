@@ -10,31 +10,13 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/text/encoding/charmap"
-	"golang.org/x/text/transform"
+	MessageModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
+	Utils "github.com/mrnegativetw/FacebookArchivePhotosRenamer/utils"
 )
 
-const baseFolderPath = "target/"
+const baseFolderPath string = "target/"
 const photosFolderPath string = "photos/"
 const messageFileName string = "message_1.json"
-
-type Messages struct {
-	Messages []Message `json:"messages"`
-}
-
-type Message struct {
-	SenderName  string   `json:"sender_name"`
-	TimestampMs int      `json:"timestamp_ms"`
-	Content     string   `json:"content"`
-	Photos      []Photos `json:"photos"`
-	Type        string   `json:"type"`
-	IsUnsent    bool     `json:"is_unsent"`
-}
-
-type Photos struct {
-	Uri               string `json:"uri"`
-	CreationTimestamp int    `json:"creation_timestamp"`
-}
 
 func getOriginalPhotoName(uri string) string {
 	fileName := strings.Split(uri, "/")
@@ -102,16 +84,15 @@ func main() {
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
-	var messages Messages
+	var messages MessageModel.Messages
 	json.Unmarshal(byteValue, &messages)
 
 	fmt.Printf("There are %d messages in this file.\n", len(messages.Messages))
 
+	Utils.Viewer{}.PrintMessageDetails(messages)
+
 	// Loop through all the messages
 	for i := 0; i < len(messages.Messages); i++ {
-		toLatin := charmap.ISO8859_1.NewEncoder()
-		inLatin, _, _ := transform.String(toLatin, messages.Messages[i].Content)
-		fmt.Printf("%s\n", inLatin)
 
 		// Check message type is photo
 		if len(messages.Messages[i].Photos) != 0 {
