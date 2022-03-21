@@ -47,5 +47,5 @@ func main() {
 	// renamePhotosFromSingleJsonFile(messages)
 
 	// 5. Rename all photos from all json files. (Recommend)
-	// renamePhotosFromAllJsonFile()
+	renamePhotosFromAllJsonFile()
 }

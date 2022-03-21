@@ -31,28 +31,41 @@ func convertUnixTimestampToIMGDateTime(photoCreationTimestamp int) string {
 
 // [OK, but duplicated] File not foun.
 func renamePhotos(originalPhotoName string, creationTimestamp int) {
-	fmt.Printf("originalPhotoName: %s\n", originalPhotoName)
-	fmt.Printf("with extension: %s\n", getFileExtensionFromFileName(originalPhotoName))
+	// fmt.Printf("originalPhotoName: %s\n", originalPhotoName)
+	// fmt.Printf("with extension: %s\n", getFileExtensionFromFileName(originalPhotoName))
+
+	originalPath := fmt.Sprintf("%s%s%s",
+		baseFolderPath,
+		photosFolderPath,
+		originalPhotoName)
 
 	newPhotoName := convertUnixTimestampToIMGDateTime(creationTimestamp)
-	fmt.Printf("New name: %s\n", newPhotoName)
+	newPath := fmt.Sprintf("%s%s%s.%s",
+		baseFolderPath,
+		photosFolderPath,
+		newPhotoName,
+		getFileExtensionFromFileName(originalPhotoName))
 
-	originalPath := fmt.Sprintf("%s%s", photosFolderPath, originalPhotoName)
-	newPath := fmt.Sprintf("%s%s.%s", photosFolderPath, newPhotoName, getFileExtensionFromFileName(originalPhotoName))
-
+	// Check is file name duplicated, if so add timestamp by 1 sec.
 	for Utils.IsFileExist(newPath) {
 		creationTimestamp += 1
 		newPhotoName = convertUnixTimestampToIMGDateTime(creationTimestamp)
-		newPath = fmt.Sprintf("%s%s.%s", photosFolderPath, newPhotoName, getFileExtensionFromFileName(originalPhotoName))
+		newPath = fmt.Sprintf("%s%s%s.%s",
+			baseFolderPath,
+			photosFolderPath,
+			newPhotoName,
+			getFileExtensionFromFileName(originalPhotoName))
 	}
 
+	// Rename photo.
 	if Utils.IsFileExist(originalPath) {
 		e := os.Rename(originalPath, newPath)
+		fmt.Printf("[OK] %s\n", newPhotoName)
 		if e != nil {
 			log.Fatal(e)
 		}
 	} else {
-		fmt.Printf("[Not Found]\n")
+		fmt.Printf("[Not Found] %s\n", originalPath)
 	}
 }
 
@@ -85,7 +98,7 @@ func renamePhotosFromAllJsonFile() {
 		if err != nil {
 			fmt.Println(err)
 		} else {
-			fmt.Printf("%s has ", filePath)
+			fmt.Printf("%s has opend successfully!\n", filePath)
 		}
 		defer jsonFile.Close()
 
