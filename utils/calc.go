@@ -22,7 +22,7 @@ func (c Calculator) CalculateTotalMessage(baseFolderPath string) int {
 		if err != nil {
 			fmt.Println(err)
 		} else {
-			fmt.Printf("%s has ", filePath)
+			// fmt.Printf("%s opened successfully!", filePath)
 		}
 		defer jsonFile.Close()
 
@@ -30,7 +30,7 @@ func (c Calculator) CalculateTotalMessage(baseFolderPath string) int {
 		var messages MessagesModel.Messages
 		json.Unmarshal(byteValue, &messages)
 
-		fmt.Printf("%d messages.\n", len(messages.Messages))
+		// fmt.Printf("%d messages.\n", len(messages.Messages))
 
 		totalMessages += len(messages.Messages)
 
