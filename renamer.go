@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -55,7 +57,7 @@ func renamePhotos(originalPhotoName string, creationTimestamp int) {
 }
 
 func renamePhotosFromSingleJsonFile(messages MessagesModel.Messages) {
-	// Loop through all messages
+	// Loop through all messages.
 	for i := 0; i < len(messages.Messages); i++ {
 
 		// Check message type is photo
@@ -73,5 +75,27 @@ func renamePhotosFromSingleJsonFile(messages MessagesModel.Messages) {
 }
 
 func renamePhotosFromAllJsonFile() {
+	jsonFileCount := 1
 
+	filePath := fmt.Sprintf("%smessage_%d.json", baseFolderPath, jsonFileCount)
+
+	// Loop through all json files.
+	for Utils.IsFileExist(filePath) {
+		jsonFile, err := os.Open(filePath)
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Printf("%s has ", filePath)
+		}
+		defer jsonFile.Close()
+
+		byteValue, _ := ioutil.ReadAll(jsonFile)
+		var messages MessagesModel.Messages
+		json.Unmarshal(byteValue, &messages)
+
+		renamePhotosFromSingleJsonFile(messages)
+
+		jsonFileCount++
+		filePath = fmt.Sprintf("%smessage_%d.json", baseFolderPath, jsonFileCount)
+	}
 }

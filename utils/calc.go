@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	MessageModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
+	MessagesModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
 )
 
 type Calculator struct{}
@@ -27,7 +27,7 @@ func (c Calculator) CalculateTotalMessage(baseFolderPath string) int {
 		defer jsonFile.Close()
 
 		byteValue, _ := ioutil.ReadAll(jsonFile)
-		var messages MessageModel.Messages
+		var messages MessagesModel.Messages
 		json.Unmarshal(byteValue, &messages)
 
 		fmt.Printf("%d messages.\n", len(messages.Messages))

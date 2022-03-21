@@ -6,14 +6,17 @@ import (
 	"io/ioutil"
 	"os"
 
-	MessageModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
+	MessagesModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
+	Utils "github.com/mrnegativetw/FacebookArchivePhotosRenamer/utils"
 )
 
 const baseFolderPath string = "target/"
 const photosFolderPath string = "photos/"
-const messageFileName string = "message_11.json"
+const messageFileName string = "message_1.json"
 
 func main() {
+	// Feature 1 ~ 3 need this section of code.
+	// ------------------------------------------------------------
 	jsonFile, err := os.Open(baseFolderPath + messageFileName)
 	if err != nil {
 		fmt.Println(err)
@@ -24,23 +27,24 @@ func main() {
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
-	var messages MessageModel.Messages
+	var messages MessagesModel.Messages
 	json.Unmarshal(byteValue, &messages)
+	// ------------------------------------------------------------
 
-	// Uncomment the code below to run the feature you need.
+	// Features:
 
 	// 1. Print all messages from single file.
 	// Utils.Viewer{}.PrintMessage(messages)
 
 	// 2. Print all messages from single file with timestamp and name.
-	// Utils.Viewer{}.PrintMessageDetails(messages)
+	Utils.Viewer{}.PrintMessageDetails(messages)
 
 	// 3. Calc total messages.
 	// totalMessageCount := Utils.Calculator{}.CalculateTotalMessage(baseFolderPath)
 	// fmt.Printf("Total message count: %d\n", totalMessageCount)
 
 	// 4. Rename photos from single json file.
-	renamePhotosFromSingleJsonFile(messages)
+	// renamePhotosFromSingleJsonFile(messages)
 
 	// 5. Rename all photos from all json files. (Recommend)
 	// renamePhotosFromAllJsonFile()

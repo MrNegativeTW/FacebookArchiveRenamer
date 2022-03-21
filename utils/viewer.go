@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"time"
 
-	MessageModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
+	MessagesModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
 	"golang.org/x/text/encoding/charmap"
 	"golang.org/x/text/transform"
 )
 
 type Viewer struct{}
 
-func (v Viewer) PrintMessageDetails(messages MessageModel.Messages) {
+func (v Viewer) PrintMessageDetails(messages MessagesModel.Messages) {
 	for i := 0; i < len(messages.Messages); i++ {
 		senderName := Viewer{}.encodeToHumanReadable(messages.Messages[i].SenderName)
 		timestamp := Viewer{}.convertTimestampMsToDateTime(messages.Messages[i].TimestampMs)
@@ -20,7 +20,7 @@ func (v Viewer) PrintMessageDetails(messages MessageModel.Messages) {
 	}
 }
 
-func (v Viewer) PrintMessage(messages MessageModel.Messages) {
+func (v Viewer) PrintMessage(messages MessagesModel.Messages) {
 	for i := 0; i < len(messages.Messages); i++ {
 		content := Viewer{}.encodeToHumanReadable(messages.Messages[i].Content)
 		fmt.Printf("%s\n", content)
