@@ -2,7 +2,7 @@
   
 <img src="https://fakeimg.pl/128x128/" width="128" height="128">
 
-<h1>Facebook Archive Photos Renamer</h1>
+<h1>Facebook Archive Renamer</h1>
 <h4>
 Rename photos downloaded from Facebook archive to human-readable DateTime format.</h4>
 

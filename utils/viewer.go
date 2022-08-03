@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	MessagesModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
+	MessagesModel "github.com/mrnegativetw/FacebookArchiveRenamer/models/messages"
 	"golang.org/x/text/encoding/charmap"
 	"golang.org/x/text/transform"
 )
