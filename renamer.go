@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	MessagesModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
-	Utils "github.com/mrnegativetw/FacebookArchivePhotosRenamer/utils"
+	MessagesModel "github.com/mrnegativetw/FacebookArchiveRenamer/models/messages"
+	Utils "github.com/mrnegativetw/FacebookArchiveRenamer/utils"
 )
 
 func getOriginalPhotoName(uri string) string {

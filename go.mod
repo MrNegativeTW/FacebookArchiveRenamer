@@ -1,4 +1,4 @@
-module github.com/mrnegativetw/FacebookArchivePhotosRenamer
+module github.com/mrnegativetw/FacebookArchiveRenamer
 
 go 1.17
 

@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	MessagesModel "github.com/mrnegativetw/FacebookArchivePhotosRenamer/models/messages"
+	MessagesModel "github.com/mrnegativetw/FacebookArchiveRenamer/models/messages"
 )
 
 type Calculator struct{}
