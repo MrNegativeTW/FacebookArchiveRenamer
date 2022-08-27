@@ -31,16 +31,20 @@ Rename photos downloaded from Facebook archive to human-readable DateTime format
 - Count total messages
 
 
+![](./screenshots/features-0.jpg)
+
 ## How it works?
 
 Loop through JSON file to get every message, if the message type is a photo, find it and rename it with the message timestamp.
 
+![](./screenshots/how-it-works-1.jpg)
 
 ## Get Started
 
 It's a little complicated, but it can save you time when there are 4400+ photos.
 
-e.g. I have almost 200,000 messages and 4400+ photos with my ONE friend
+> e.g. I have almost 200,000 messages and 4400+ photos with my ONE friend
+> ![](./screenshots/get-started-0.jpg)
 
 ### Download your data from Facebook
 
