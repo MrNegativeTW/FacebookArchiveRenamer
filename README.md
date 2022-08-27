@@ -6,7 +6,11 @@
 <h4>
 Rename photos downloaded from Facebook archive to human-readable DateTime format.</h4>
 
-![](https://img.shields.io/badge/Python-3-4b8bb8.svg?style=flat-square)
+![](https://img.shields.io/badge/Go-1.19-blue?logo=go&color=29BEB0)
+![](https://img.shields.io/badge/Python-3-4b8bbe?logo=python)
+![](https://img.shields.io/badge/memes-inside-blue)
+<br>
+[![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
 
 <p align="center">
   <a href="#Preview">Preview</a> •
@@ -112,3 +116,6 @@ Under `Select information to download`, select `Messages`.
 ```
 Not decided yet.
 ```
+
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com)
